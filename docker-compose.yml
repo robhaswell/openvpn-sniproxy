@@ -11,22 +11,13 @@ services:
       USERNAME: ${USERNAME}
       PASSWORD: ${PASSWORD}
     ports:
-      - "81:80"
-      - "444:443"
+      - "80:80"
+      - "443:443"
     dns:
       - 8.8.8.8
-      - 4.4.4.4
+      - 8.8.4.4
   sniproxy:
     build: sniproxy
     network_mode: service:openvpn
     restart: always
-  local-proxy: # For some reason, we can only access the proxy locally, so we need a proxy on net host
-    image: tecnativa/tcp-proxy
-    restart: always
-    network_mode: host
-    environment:
-      LISTEN: ":80 :443"
-      TALK: "127.0.0.1:81 127.0.0.1:444"
-    depends_on:
-      - sniproxy
 version: '2'

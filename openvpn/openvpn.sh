@@ -1,14 +1,12 @@
 #!/bin/sh
-set -eu
-
-: ${REGION:?"Run 'docker run brettmcgin/ipvanish ls' to see the list of regions"}
-: ${USERNAME:?"Pass in '-e USERNAME='IPVANISH Username''"}
-: ${PASSWORD:?"Pass in '-e PASSWORD='IPVANISH Password''"}
-
 echo "$USERNAME" > auth.conf
 echo "$PASSWORD" >> auth.conf
 
 chmod 600 auth.conf
+
+DEFAULT=`ip route | grep "^default" | awk -F'[ ]+' '{print $3}'`
+
+/sbin/ip route add 192.168.0.0/16 via ${DEFAULT} dev eth0
 
 openvpn \
     --config "${REGION}.ovpn" \
