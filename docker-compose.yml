@@ -1,0 +1,18 @@
+services:
+  openvpn:
+    cap_add:
+    - NET_ADMIN
+    build: openvpn
+    devices:
+    - /dev/net/tun
+    environment:
+      REGION: ${REGION}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+    ports:
+      - "80:80"
+      - "443:443"
+  sniproxy:
+    build: sniproxy
+    network_mode: service:openvpn
+version: '2'
