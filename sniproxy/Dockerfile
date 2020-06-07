@@ -6,3 +6,6 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y sniproxy
 
+ADD sniproxy.conf /etc/sniproxy.conf
+
+CMD sniproxy -f
