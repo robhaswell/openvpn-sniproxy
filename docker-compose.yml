@@ -3,6 +3,7 @@ services:
     cap_add:
     - NET_ADMIN
     build: openvpn
+    restart: always
     devices:
     - /dev/net/tun
     environment:
@@ -18,8 +19,10 @@ services:
   sniproxy:
     build: sniproxy
     network_mode: service:openvpn
+    restart: always
   local-proxy: # For some reason, we can only access the proxy locally, so we need a proxy on net host
     image: tecnativa/tcp-proxy
+    restart: always
     network_mode: host
     environment:
       LISTEN: ":80 :443"
