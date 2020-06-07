@@ -20,7 +20,7 @@ services:
     network_mode: service:openvpn
   local-proxy: # For some reason, we can only access the proxy locally, so we need a proxy on net host
     image: tecnativa/tcp-proxy
-    network_mode: "host"
+    network_mode: host
     environment:
       LISTEN: ":80 :443"
       TALK: "127.0.0.1:81 127.0.0.1:444"
