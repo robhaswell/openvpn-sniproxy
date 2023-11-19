@@ -6,7 +6,7 @@ chmod 600 auth.conf
 
 DEFAULT=`ip route | grep "^default" | awk -F'[ ]+' '{print $3}'`
 
-/sbin/ip route add 192.168.0.0/16 via ${DEFAULT} dev eth0
+/usr/sbin/ip route add 192.168.0.0/16 via ${DEFAULT} dev eth0
 
 openvpn \
     --config "${REGION}.ovpn" \

@@ -7,14 +7,13 @@ RUN apt-get upgrade -y
 RUN apt-get install -y \
     wget \
     unzip \
+    iproute2 \
     network-manager-openvpn
 
 ARG VPN_DIR=/etc/openvpn
+COPY configs ${VPN_DIR}/
 
 WORKDIR ${VPN_DIR}
-
-RUN wget https://www.ipvanish.com/software/configs/configs.zip && \
-    unzip configs.zip
 
 COPY openvpn.sh openvpn.sh
 
